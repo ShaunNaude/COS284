@@ -1,0 +1,53 @@
+     1                                 %line 1+1 task1.asm
+     2                                 [section .data]
+     3 00000000 414141414242            string1 db "AAAABB"
+     4 00000006 506C6561736520696E-     string2 db "Please input your student number: ",10
+     5 00000006 70757420796F757220-
+     6 00000006 73747564656E74206E-
+     7 00000006 756D6265723A200A   
+     8 00000029 596F75722073747564-     string3 db "Your student number is: u",10
+     9 00000029 656E74206E756D6265-
+    10 00000029 722069733A20750A   
+    11                                 
+    12                                 
+    13                                 [section .text]
+    14                                 [global _start]
+    15                                 
+    16                                  _start:
+    17                                 
+    18 00000000 48C7C222000000          mov rdx, 0x22
+    19 00000007 48C7C6[00000000]        mov rsi, dword string2
+    20 0000000E 48C7C001000000          mov rax, 0x1
+    21 00000015 48C7C701000000          mov rdi, 0x1
+    22 0000001C 0F05                    syscall
+    23                                 
+    24                                 
+    25                                 
+    26                                 
+    27 0000001E 48C7C20A000000          mov rdx, 0xa
+    28 00000025 48C7C6[00000000]        mov rsi, dword string1
+    29 0000002C 48C7C000000000          mov rax, 0x0
+    30 00000033 48C7C700000000          mov rdi, 0x0
+    31 0000003A 0F05                    syscall
+    32                                 
+    33                                 
+    34 0000003C 48C7C219000000          mov rdx, 0x19
+    35 00000043 48C7C6[00000000]        mov rsi, dword string3
+    36 0000004A 48C7C001000000          mov rax, 0x1
+    37 00000051 48C7C701000000          mov rdi, 0x1
+    38 00000058 0F05                    syscall
+    39                                 
+    40                                 
+    41                                 
+    42 0000005A 48C7C208000000          mov rdx, 0x8
+    43 00000061 48C7C6[00000000]        mov rsi, dword string1
+    44 00000068 48C7C001000000          mov rax, 0x1
+    45 0000006F 48C7C701000000          mov rdi, 0x1
+    46 00000076 0F05                    syscall
+    47                                 
+    48                                 
+    49 00000078 B83C000000              mov eax,60
+    50 0000007D 31FF                    xor edi,edi
+    51 0000007F 0F05                    syscall
+    52                                 
+    53                                 
