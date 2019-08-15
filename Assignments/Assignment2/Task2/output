@@ -1,0 +1,5 @@
+yasm -f elf64 -g dwarf2 -l div.lst -o div.o div.asm
+mkdir -p bin
+ld -o bin/div div.o
+./bin/div
+Please input the first number: Please input the second number: 2r2
