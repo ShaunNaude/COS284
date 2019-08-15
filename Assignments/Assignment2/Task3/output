@@ -1,0 +1,5 @@
+yasm -f elf64 -g dwarf2 -l sub.lst -o sub.o sub.asm
+mkdir -p bin
+ld -o bin/sub sub.o
+./bin/sub
+Please input the first number: Please input the second number: 77
