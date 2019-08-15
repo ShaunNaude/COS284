@@ -1,0 +1,5 @@
+yasm -f elf64 -g dwarf2 -l mul.lst -o mul.o mul.asm
+mkdir -p bin
+ld -o bin/mul mul.o
+./bin/mul
+Please input the first number: Please input the second number: 25
