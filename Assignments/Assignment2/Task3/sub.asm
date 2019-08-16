@@ -44,8 +44,8 @@ section .text
         movsx r8,byte [input1]
         movsx r10, byte [input2]
 
-        movsx r9,byte [input1+1]
-        movsx r11, byte [input2+1]
+        movsx r9,byte [input1+1]   ; unit top
+        movsx r11, byte [input2+1]  ; unit bot
 
 
         sub r8,'0'
@@ -57,10 +57,34 @@ section .text
         sub r8,r10
         sub r9,r11
 
-        add r8,48
-        add r9,'0' 
+        mov r13,r9 ;copy of r9
 
-        mov [input1], r8
+         
+
+        mov r12,r8
+        sub r12,1
+
+        mov rax,r9
+        add r9,10
+
+        
+        cmp rax,0
+        cmovl rax, r9
+        mov r9,rax
+        mov rax,r13
+
+        cmp rax,0
+        cmovl rax,r12
+        mov r13,rax
+
+
+        add r8,48
+        add r9,'0'
+
+        add r12,48
+        add r13,'0'
+
+        mov [input1], r13
         mov [quot], r9
 
 
