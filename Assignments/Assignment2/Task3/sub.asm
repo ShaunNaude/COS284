@@ -6,6 +6,7 @@ section .data
     quot db "aaaaaa",0x0a
     rem db "aaaaaaa",10
     divider dq "aaaaaaa",32
+    i : dq 2
    
 section .text
     global _start
@@ -41,11 +42,11 @@ section .text
         mov  rdi, 0x0               ; stdin has a file descriptor of 0
         syscall 
 
-        movsx r8,byte [input1]
-        movsx r10, byte [input2]
+        mov r8, [input1]
+        mov r10,  [input2]
 
-        movsx r9,byte [input1+1]   ; unit top
-        movsx r11, byte [input2+1]  ; unit bot
+        mov r9, [input1+1]   ; unit top
+        mov r11,  [input2+1]  ; unit bot
 
 
         sub r8,'0'
