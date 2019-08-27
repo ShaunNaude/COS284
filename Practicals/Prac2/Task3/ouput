@@ -1,0 +1,5 @@
+yasm -f elf64 -g dwarf2 -l task3.lst -o task3.o task3.asm
+mkdir -p bin
+ld -o bin/task3 task3.o
+./bin/task3
+Please input the first number: Please input the second number: 3
