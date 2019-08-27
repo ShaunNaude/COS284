@@ -1,0 +1,5 @@
+yasm -f elf64 -g dwarf2 -l task2.lst -o task2.o task2.asm
+mkdir -p bin
+ld -o bin/task2 task2.o
+./bin/task2
+Please enter a string: The length of the string is: 49

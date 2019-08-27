@@ -1,10 +1,10 @@
-build: task2.asm
-	yasm -f elf64 -g dwarf2 -l task2.lst -o task2.o task2.asm
+build: task1.asm
+	yasm -f elf64 -g dwarf2 -l task1.lst -o task1.o task1.asm
 	mkdir -p bin
-	ld -o bin/task2 task2.o
+	ld -o bin/task1 task1.o
 
 run: build
-	./bin/task2
+	./bin/task1
 
 clean:
 	rm -f *.o
