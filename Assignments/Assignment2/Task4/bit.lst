@@ -1,76 +1,81 @@
      1                                 %line 1+1 bit.asm
      2                                 [section .data]
      3 00000000 02                      input1 db "" ,2
-     4 00000001 506C6561736520696E-     string1 db "Please input the first number: ",0x0a
-     5 00000001 707574207468652066-
-     6 00000001 69727374206E756D62-
-     7 00000001 65723A200A         
-     8 00000021 506C6561736520696E-     string2 db "Please input the second number: ",0x0a
-     9 00000021 707574207468652073-
-    10 00000021 65636F6E64206E756D-
-    11 00000021 6265723A200A       
-    12 00000042 6161616161610A          input2 db "aaaaaa",10
-    13 00000049 6161616161610A          quot db "aaaaaa",0x0a
-    14 00000050 616161616161610A        rem db "aaaaaaa",10
-    15 00000058 616161616161610020-     divider dq "aaaaaaa",32
-    16 00000058 00000000000000     
-    17 00000068 0200000000000000        i : dq 2
+     4 00000001 506C6561736520696E-     string1 db "Please input a number: ",0x0a
+     5 00000001 7075742061206E756D-
+     6 00000001 6265723A200A       
+     7                                 
+     8                                 [section .text]
+     9                                 [global _start]
+    10                                 
+    11                                  _start:
+    12                                 
+    13 00000000 48C7C217000000          mov rdx, 23
+    14 00000007 48C7C6[00000000]        mov rsi, dword string1
+    15 0000000E 48C7C001000000          mov rax,1
+    16 00000015 48C7C701000000          mov rdi,1
+    17 0000001C 0F05                    syscall
     18                                 
-    19                                 [section .text]
-    20                                 [global _start]
+    19                                 
+    20                                 
     21                                 
-    22                                  _start:
-    23                                 
-    24 00000000 48C7C21F000000          mov rdx, 31
-    25 00000007 48C7C6[00000000]        mov rsi, dword string1
-    26 0000000E 48C7C001000000          mov rax,1
-    27 00000015 48C7C701000000          mov rdi,1
-    28 0000001C 0F05                    syscall
+    22 0000001E 48C7C203000000          mov rdx,3
+    23 00000025 48C7C6[00000000]        mov rsi, dword input1
+    24 0000002C 48C7C000000000          mov rax, 0
+    25 00000033 48C7C700000000          mov rdi,0
+    26 0000003A 0F05                    syscall
+    27                                 
+    28 0000003C 4C0FBE0425[00000000]      movsx r8,byte [input1]
     29                                 
     30                                 
     31                                 
-    32                                 
-    33 0000001E 48C7C203000000          mov rdx,3
-    34 00000025 48C7C6[00000000]        mov rsi, dword input1
-    35 0000002C 48C7C000000000          mov rax, 0
-    36 00000033 48C7C700000000          mov rdi,0
-    37 0000003A 0F05                    syscall
-    38                                 
-    39                                 
-    40 0000003C 48C7C220000000          mov rdx,32
-    41 00000043 48C7C6[00000000]        mov rsi, dword string2
-    42 0000004A 48C7C001000000          mov rax, 1
-    43 00000051 48C7C701000000          mov rdi, 1
-    44 00000058 0F05                    syscall
-    45                                 
+    32 00000045 4C0FBE1C25[01000000]      movsx r11, byte [input1+1]
+    33                                 
+    34 0000004E 48C7C00A000000          mov rax,10
+    35 00000055 4983E830                sub r8,'0'
+    36 00000059 4983EB30                sub r11,'0'
+    37 0000005D 49F7E0                  mul r8
+    38 00000060 4989C0                  mov r8,rax
+    39 00000063 4D01D8                  add r8,r11
+    40                                 
+    41                                 
+    42 00000066 49C7C400000000          mov r12,0
+    43 0000006D 49C7C501000000          mov r13,1
+    44 00000074 4983F840                cmp r8,64
+    45 00000078 4D0F44EC                cmovz r13,r12
     46                                 
-    47 0000005A 48C7C203000000          mov rdx,3
-    48 00000061 48C7C6[00000000]        mov rsi, dword input2
-    49 00000068 48C7C000000000          mov rax, 0x0
-    50 0000006F 48C7C700000000          mov rdi, 0x0
-    51 00000076 0F05                    syscall
+    47 0000007C 4983F820                cmp r8,32
+    48 00000080 4D0F44EC                cmovz r13,r12
+    49                                 
+    50 00000084 4983F810                cmp r8,16
+    51 00000088 4D0F44EC                cmovz r13,r12
     52                                 
-    53 00000078 4C0FBE0425[00000000]      movsx r8,byte [input1]
-    54 00000081 4C0FBE1425[00000000]      movsx r10, byte [input2]
+    53 0000008C 4983F808                cmp r8,8
+    54 00000090 4D0F44EC                cmovz r13,r12
     55                                 
-    56 0000008A 4C0FBE0C25[01000000]      movsx r9,byte [input1+1]
-    57 00000093 4C0FBE1C25[01000000]      movsx r11, byte [input2+1]
+    56 00000094 4983F804                cmp r8,4
+    57 00000098 4D0F44EC                cmovz r13,r12
     58                                 
-    59 0000009C 48C7C00A000000          mov rax,10
-    60 000000A3 4983E830                sub r8,'0'
-    61 000000A7 49F7E0                  mul r8
-    62 000000AA 4989C0                  mov r8,rax
-    63                                 
+    59 0000009C 4983F802                cmp r8,2
+    60 000000A0 4D0F44EC                cmovz r13,r12
+    61                                 
+    62 000000A4 4983F801                cmp r8,1
+    63 000000A8 4D0F44EC                cmovz r13,r12
     64                                 
-    65 000000AD 48C7C00A000000          mov rax,10
-    66 000000B4 4983EA30                sub r10,'0'
-    67 000000B8 49F7E2                  mul r10
-    68 000000BB 4989C2                  mov r10,rax
-    69                                 
-    70 000000BE 4983E930                sub r9,'0'
-    71 000000C2 4983EB30                sub r11,'0'
-    72                                 
-    73                                 
-    74 000000C6 48C7C03C000000          mov rax,60
-    75 000000CD 4831FF                  xor rdi,rdi
-    76 000000D0 0F05                    syscall
+    65 000000AC 4983C530                add r13,'0'
+    66 000000B0 4C892C25[00000000]      mov [num],r13
+    67                                 
+    68                                 
+    69 000000B8 48C7C201000000          mov rdx,1
+    70 000000BF 48C7C6[00000000]        mov rsi, dword num
+    71 000000C6 48C7C001000000          mov rax, 1
+    72 000000CD 48C7C701000000          mov rdi, 1
+    73 000000D4 0F05                    syscall
+    74                                 
+    75                                 
+    76                                 
+    77                                 
+    78                                 
+    79 000000D6 48C7C03C000000          mov rax,60
+    80 000000DD 4831FF                  xor rdi,rdi
+    81 000000E0 0F05                    syscall

@@ -1,5 +1,5 @@
 section .data
-    input1 db  "" ,2      ; Reserve space for 10 characters
+    input1 db  "" ,2    
     string1 db  "Please input the first number: ",0x0a      
     string2 db  "Please input the second number: ",0x0a
     input2 db  "aaaaaa",10  

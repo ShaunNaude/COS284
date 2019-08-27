@@ -1,0 +1,55 @@
+     1                                 %line 1+1 task2.asm
+     2                                 [section .data]
+     3 00000000 414141414242            string1 db "AAAABB"
+     4 00000006 506C6561736520656E-     string2 db "Please enter 3 characters: "
+     5 00000006 746572203320636861-
+     6 00000006 726163746572733A20 
+     7 00000021 436F6E766572746564-     string3 db "Converted: "
+     8 00000021 3A20               
+     9                                 
+    10                                 
+    11                                 [section .text]
+    12                                 [global _start]
+    13                                 
+    14                                  _start:
+    15                                 
+    16 00000000 48C7C21B000000          mov rdx, 0x1b
+    17 00000007 48C7C6[00000000]        mov rsi, dword string2
+    18 0000000E 48C7C001000000          mov rax, 0x1
+    19 00000015 48C7C701000000          mov rdi, 0x1
+    20 0000001C 0F05                    syscall
+    21                                 
+    22                                 
+    23                                 
+    24                                 
+    25 0000001E 48C7C203000000          mov rdx, 0x3
+    26 00000025 48C7C6[00000000]        mov rsi, dword string1
+    27 0000002C 48C7C000000000          mov rax, 0x0
+    28 00000033 48C7C700000000          mov rdi, 0x0
+    29 0000003A 0F05                    syscall
+    30                                 
+    31                                 
+    32                                 
+    33 0000003C 48C7C20B000000          mov rdx, 0xb
+    34 00000043 48C7C6[00000000]        mov rsi, dword string3
+    35 0000004A 48C7C001000000          mov rax, 0x1
+    36 00000051 48C7C701000000          mov rdi, 0x1
+    37 00000058 0F05                    syscall
+    38                                 
+    39                                 
+    40 0000005A 48C7C020000000          mov rax,0x20
+    41 00000061 48010425[01000000]      add [string1 + 1], rax
+    42 00000069 48010425[02000000]      add [string1+2],rax
+    43 00000071 48290425[00000000]      sub [string1],rax
+    44                                 
+    45                                 
+    46 00000079 48C7C203000000          mov rdx, 0x3
+    47 00000080 48C7C6[00000000]        mov rsi, dword string1
+    48 00000087 48C7C001000000          mov rax, 0x1
+    49 0000008E 48C7C701000000          mov rdi, 0x1
+    50 00000095 0F05                    syscall
+    51                                 
+    52                                 
+    53 00000097 B83C000000              mov eax,60
+    54 0000009C 31FF                    xor edi,edi
+    55 0000009E 0F05                    syscall
