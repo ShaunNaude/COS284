@@ -1,6 +1,6 @@
 section .data
            ; Reserve space for 10 characters
-    string1 dq  "Please enter a number: "  
+    string1 dq  "Please input an integer: ",25  
     string2 dq "The total sum is: "
    
     input1 db  "",0x0a
@@ -12,7 +12,7 @@ section .text
 
     _start:
 
-        mov  rdx,23                 ; length of string is  bytes
+        mov  rdx,25                 ; length of string is  bytes
         mov  rsi, qword string1     ; set rsi to pointer to string
         mov  rax, 0x1               ; syscall 1 is write
         mov  rdi, 0x1               ; stdout has a file descriptor of 1
@@ -97,7 +97,8 @@ section .text
     mov rdx,0
     mov r8,ans
     mov r12,0 ;holder
-    mov r15,1
+    mov r15,0
+    mov r13,0 ;another counter
     
     start4:
         xor rdx,rdx
@@ -106,10 +107,13 @@ section .text
 
         div r10
         inc r9
+        
         jmp start4
 
 
             less:
+                
+
                 cmp r9,0
                 je r9is0
                 mov r12,rax
@@ -127,15 +131,34 @@ section .text
                     endMul:
                 mul r12
                 sub r11,rax
-                mov rax,r11
+                ;lll
+                div r10
+                div r12
+                cmp rax,r11
+                jg addZero
+                jmp here
+
+            addZero:inc r8
+                    add r13,'0'
+                    mov [r8],r13
+                    inc r15
+
+
+              here:  mov rax,r11
+                
                 inc r8
+                mov r13,0
                 mov r9,0
                 jmp start4
                 
                 r9is0:
+                    cmp r15,0
+                    jz ext4
                     add rax,'0'
                     mov [r8],rax
                     jmp ext4
+
+
 
 
     ext4:
@@ -150,7 +173,9 @@ section .text
     mov  rax, 0x1               ; syscall 1 is write
     mov  rdi, 0x1               ; stdout has a file descriptor of 1
     syscall
+    
 
+    
     mov  rdx,r15                 ; length of string is  bytes
     mov  rsi, dword ans     ; set rsi to pointer to string
     mov  rax, 0x1               ; syscall 1 is write
