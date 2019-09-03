@@ -1,0 +1,5 @@
+yasm -f elf64 -g dwarf2 -l basicCaesar.lst -o basicCaesar.o basicCaesar.asm
+mkdir -p bin
+ld -o bin/basicCaesar basicCaesar.o
+./bin/basicCaesar
+Please input the shift degree: Please input the string to encode: Encoded text: z�cf�������b�a�
