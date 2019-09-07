@@ -1,9 +1,9 @@
 section .data
            ; Reserve space for 10 characters
-    string1 dq  "Please input an integer: ",25  
+    string1 dq  "Please input an integer: "  
     string2 dq "The total sum is: "
    
-    input1 db  "",0x0a
+    input1 db  ""
     ans db ""
        
 
@@ -102,6 +102,9 @@ section .text
     
     start4:
         xor rdx,rdx
+        
+       
+
         cmp rax,10
         jl less
 
@@ -112,7 +115,8 @@ section .text
 
 
             less:
-                
+                 cmp rax,0
+                 jz cunt
 
                 cmp r9,0
                 je r9is0
@@ -153,17 +157,21 @@ section .text
                 
                 r9is0:
                     cmp r15,0
-                    jz ext4
+                    jz this
                     add rax,'0'
                     mov [r8],rax
+                    inc r15
                     jmp ext4
 
-
+            this:    add rax,'0'
+                    mov [r8],rax
+                    inc r15
+                    jmp ext4
 
 
     ext4:
 
-
+    cunt:
 
 
 

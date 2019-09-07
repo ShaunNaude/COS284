@@ -7,10 +7,10 @@ section .data
    
    ; input1 db  ""
    ; something db "here"
-   ; input2 db ""
+   ; input2 db ""                      ; SOMETIMES THIS DOESNT WORK
        
 section .bss
-    input1 resb 10
+    input1 resb 10			; RATER USE .BSS FOR INPUT
     input2 resb 10
 section .text
 
@@ -100,11 +100,12 @@ section .text
                   jmp increment
 
         over:
+        
+        mov r11,rax
+        cmp r11,122
+        jle increment
 
-        cmp byte [r9],122
-        jg wrapAround
-
-        jmp increment
+        jmp wrapAround
 
         wrapAround:sub byte[r9],26
         jmp increment
