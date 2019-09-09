@@ -1,6 +1,6 @@
 section .data
            ; Reserve space for 10 characters
-    string1 dq  "Please input an integer: ",25  
+    string1 dq  "Please input an integer: ",0x0a  
     string2 dq "The total sum is: "
    
     input1 db  "",0x0a
