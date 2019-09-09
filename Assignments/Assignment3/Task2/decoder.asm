@@ -2,15 +2,15 @@
 section .data
            ; Reserve space for 10 characters
     string1 dq  "Please input the shift degree: ",
-    string2 dq "Please input the string to encode: "
-    string3 dq "Encoded text: "
+    string2 dq "Please input the string to decode: "
+    string3 dq "Decoded text: "
    
    ; input1 db  ""
    ; something db "here"
-   ; input2 db ""                      ; SOMETIMES THIS DOESNT WORK
+   ; input2 db ""
        
 section .bss
-    input1 resb 10			; RATER USE .BSS FOR INPUT
+    input1 resb 10
     input2 resb 10
 section .text
 
@@ -86,29 +86,38 @@ section .text
         cmp byte [r9],32
         jz increment
 
-        add byte [r9], r8b ; adding the shift
+        sub byte [r9], r8b ; sub the shift
         mov al,byte [r9]
-        cmp al,127
-        jl over      ;***why does it not jump
+        cmp al,97
+        jl lower97      ;***why does it not jump
 
-        jmp larger127
+        jmp over
 	
 	
 	
-        larger127: sub byte [r9],122
-                  add byte [r9],97
+        lower97:  sub byte [r9],97
+                  add byte [r9],122
+                  movsx r11,byte [r9]
+                  add r11,r8
+                  cmp r11,122
+                  jge here
+
+                  jmp increment
+                    here:
+                  add byte [r9],1  
+
                   jmp increment
 
         over:
         
-        mov r11,rax
-        cmp r11,122
-        jle increment
+       ; mov r11,rax
+        ;cmp r11,122
+       ; jle increment
 
-        jmp wrapAround
+        ;jmp wrapAround
 
-        wrapAround:sub byte[r9],26
-        jmp increment
+       ; wrapAround:sub byte[r9],26
+       ; jmp increment
 
 
         increment:  movsx r14,byte [r9] ;debugging line
