@@ -33,8 +33,8 @@ int main(int argc, char** argv)
 
      spiralRead(matrix, ROWS, COLS);
 
-   // for (int i = 0; i < ROWS; ++i) {
-   //     free(matrix[i]);
+   //for (int i = 0; i < ROWS; ++i) {
+     //   free(matrix[i]);
    // }
    // free(matrix);
 
