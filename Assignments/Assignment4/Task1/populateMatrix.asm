@@ -19,7 +19,8 @@ GLOBAL populateMatrix
 
         ;stack memory allocation
     ;========================
-    generalVar equ 0 ; rows
+    generalVar equ 0 ; 
+    
 
     sub rsp,16
     ;========================
@@ -59,10 +60,43 @@ GLOBAL populateMatrix
         jmp loop1
     end1:
 
-    mov rax,matrixPtr
-
 ;===========================================
 
+        ;populate array
+;===========================================
+        mov r10,0 ;row counter
+        mov r11,0 ;col counter
+        mov r12,0 ; general
+
+
+        ;initial loop to make all matrix[rowNum][0] = A
+    ;==================================================
+        
+        initial:
+            cmp r10,26
+            jz end2
+            
+        
+            mov rax,8
+            mul r10 ;do offset calc
+            mov r15,[matrixPtr+rax] ; this finds correct row by adding offset
+            mov r12,65
+            mov [r15],r12  ; r15 is now holding A  
+            
+
+            inc r10
+            jmp initial
+
+        end2:
+    ;==================
+
+        ;this loop/s will do the actual cipher block
+    ;===================================================   
+        
+
+    ;===================
+
+;===========================================
     ;end function
   ;=================  
       leave
