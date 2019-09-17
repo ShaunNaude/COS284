@@ -18,8 +18,10 @@ GLOBAL spiralRead
     M equ 0 ; rows
     N equ 8 ; cols
     P equ 16 ;ptr
-  
-    sub rsp,16
+
+   
+
+    sub rsp,32
     mov [rsp+M],rsi  ;put rows on stack
     mov [rsp+N],rdx  ;put cols on stack
     mov [rsp+P],rdi ;put ptr on stack
@@ -177,6 +179,7 @@ GLOBAL spiralRead
 
         jmp while
     endWhile:
+   
 
 
 
@@ -205,8 +208,8 @@ GLOBAL spiralRead
 
     ;end function
   ;=================
-      mov rsp,rbp
-      pop rbp
+      
+      leave
       ret
   ;===============
 
