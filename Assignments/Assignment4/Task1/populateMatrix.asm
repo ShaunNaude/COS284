@@ -90,12 +90,75 @@ GLOBAL populateMatrix
         end2:
     ;==================
 
+        mov r10,0 ;row counter
+        mov r11,0 ;col counter
+        mov r12,65 ; general
+        mov r14,0 ; general
+
         ;this loop/s will do the actual cipher block
     ;===================================================   
-        
 
+
+
+
+        rowLoop:
+            cmp r10,26
+            jz Rend
+
+
+            
+
+            colLoop:
+                cmp r11,26
+                jz Cend
+
+
+                mov rax,8
+                mul r10 ;do offset calc
+                mov r15,[matrixPtr+rax] ; this finds correct row by adding offset
+                
+                add r15,r11 ; add byte offset/find correct col
+                mov [r15],r12
+              ;  add[r15],r10
+                
+
+                add [r15],r10 ; this adds the value of row
+
+            ;wrap around kak
+                mov r14,[r15]
+                cmp r14,90
+                jg bigger
+
+                jmp over
+
+                bigger:
+                    mov r14,90
+                    sub [r15],r14
+                    mov r14,64
+                    add [r15],r14
+
+            ;;============================
+
+                over:
+
+                mov r14,[r15] ; debugging line
+
+                inc r11
+                inc r12
+                jmp colLoop
+
+
+
+            Cend:
+
+            mov r12,65
+            mov r11,0
+            inc r10
+            jmp rowLoop
+        Rend:
     ;===================
 
+        mov rax,matrixPtr  ; loads parameter to be returned
 ;===========================================
     ;end function
   ;=================  

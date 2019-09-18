@@ -16,8 +16,9 @@ int main(int argc, char** argv)
             {
                 for (int k =0 ; k<26 ; k++)
                 {
-                     printf("%c",matrix[i][0]);
+                     printf("%c",matrix[i][k]);
                 }
+                putchar('\n');
             }
 
 
