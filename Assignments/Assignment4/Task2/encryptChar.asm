@@ -25,7 +25,12 @@ GLOBAL encryptChar
     mov [rsp+Parameter2],rdx  ;put cols on stack
     mov [rsp+matrixPtr],rdi ;put ptr on stack
 
+   ; mov rdi,[rdi]
+   ; mov rdi,[rdi]
+
     mov r10,0
+    mov r15,0
+    mov r14,0
         ;find the col
 ;===================================
     loop1:
@@ -36,8 +41,8 @@ GLOBAL encryptChar
             mov r15,[r15]
             add r15,r10
 
-            mov r14,[r15]
-            cmp r14,[rsp+Parameter1]
+            movsx r15,byte [r15]
+            cmp r15,[rsp+Parameter1]
             jz end1 
             
 
@@ -48,6 +53,8 @@ GLOBAL encryptChar
     mov [rsp+Parameter1],r10 ; parameter1 now hold the row
 ;====================================
     mov r11,0;
+    mov r14,0
+    mov r15,0
         ;find the row
 ;====================================
     loop2:
@@ -59,7 +66,7 @@ GLOBAL encryptChar
         mov r15,[rsp+matrixPtr] ; this finds correct row by adding offset
         add r15,rax
         mov r14,[r15]
-        mov r14,[r14]
+        movsx r14,byte [r14]
         cmp r14,[rsp+Parameter2]
         jz end2
 
@@ -77,6 +84,7 @@ GLOBAL encryptChar
 
          mov r15,[rsp+matrixPtr] ; this finds correct row by adding offset
          add r15,r11
+         mov r15,[r15]
          add r15,r10
          mov rax,[r15]
 

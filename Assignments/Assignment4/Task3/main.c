@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 extern char** populateMatrix();
-extern char encryptChar(char**,char, char);
+extern char* encryptString(char** ,char*, char*);
 
 #define ROWS 26
 #define COLS 26
@@ -30,11 +30,15 @@ int main(int argc, char** argv)
                 }
                     
             }*/
-
-    char awe = encryptChar(matrix,'k' , 'L');
-    printf("%c",awe);
-
     
+    char* awe = encryptString(matrix,"ATTACK AT DAWN","LEMON");
+    
+    int c =0;
+    while(awe[c] != '0')
+    {
+      printf("%c", awe[c]);
+      c++;
+    }
 
            
 
